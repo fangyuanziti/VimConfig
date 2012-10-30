@@ -21,17 +21,14 @@ Bundle 'ervandew/supertab'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'a.vim'
-Bundle 'neocomplcache'
-""Bundle 'JavaImp.vim'
 Bundle 'lookupfile'
 Bundle 'bufexplorer.zip'
 Bundle "surround.vim"
 Bundle 'matchit.zip'
 Bundle 'genutils'
 Bundle 'mru.vim'
-Bundle 'OmniCppComplete'
 Bundle 'javacomplete'
-Bundle 'pythoncomplete'
+"Bundle 'pythoncomplete'
 Bundle 'Shougo/neocomplcache'
 Bundle 'ccvext.vim'
 Bundle 'jsbeautify'
@@ -41,12 +38,18 @@ Bundle 'chilicuil/conque'
 Bundle 'FencView.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'andrep/vimacs'
+Bundle "Rip-Rip/clang_complete"
 "SnipMate
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
-Bundle "garbas/vim-snipmate"
-
+Bundle "python.vim"
+Bundle "sontek/rope-vim"
+let g:ropevim_vim_completion=1
+let g:ropevim_extended_complete=1
+"Bundle "VimIM"
+"let g:vimim_cloud = 'google,sogou,baidu,qq'
+"let g:vimim_map = 'tab_as_gi'
 "格式3：非Github的Git仓库
 "Doxygen setting
 Bundle "DoxygenToolkit.vim"
@@ -78,7 +81,7 @@ Bundle 'scrooloose/syntastic'
 let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
-"let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:syntastic_mode_map = { 'mode': 'passive' }
 "command
 Bundle 'scrooloose/nerdcommenter'
 nmap <leader>, :call NERDComment(0, "invert")<cr>
@@ -257,7 +260,7 @@ map <leader>ss :setlocal spell!<cr>
 """"""""""""""""""""""""""""""
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
-autocmd FileType python runtime! autoload/pythoncomplete.vim
+"autocmd FileType python runtime! autoload/pythoncomplete.vim
 au BufNewFile,BufRead *.jinja set syntax=htmljinja
 au BufNewFile,BufRead *.mako set ft=mako
 
@@ -370,15 +373,15 @@ if has("cscope")
     set cscopequickfix=s-,c-,d-,i-,t-,e-
 endif
 
-nmap .s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap .g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap .c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap .t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap .g :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap .e :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap .i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap .d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
+nmap <M-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <M-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <M-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <M-t> :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <M-e> :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <M-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <M-i> :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <M-d> :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -399,7 +402,8 @@ map <leader>bb :cd ..<cr>>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "javalmp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:JavaImpPaths = $HOME."/project/android-sdk-linux/sources/android-15/"
+let g:JavaImpPaths = $HOME."/project/android-sdk-linux/sources/android-15/,".
+                        \ $HOME.'~/project/BookReader/src/'
 let g:JavaImpDataDir = $HOME."/.vim/JavaImp"
 let g:JavaImpSortPkgSep = 0
 map <leader>t :JavaImp<cr>
@@ -481,14 +485,16 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+"let g:neocomplcache_omni_patterns.python = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.python = '[^. *\t]\.\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.python3 = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -557,6 +563,7 @@ syntax enable "Enable syntax hl
 " Set font according to system
 
   set gfn=WenQuanYi\ Zen\ Hei\ Mono\ Medium\ 11
+"set gfn=Monospace\ 11
   set shell=/bin/bash
 
 if has("gui_running")
@@ -786,4 +793,6 @@ nmap <C-j> <C-W>j
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>j
 
+
 filetype plugin indent on
+
