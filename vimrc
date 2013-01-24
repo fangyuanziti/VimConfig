@@ -5,19 +5,14 @@
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
-
 set nocompatible " be iMproved
 filetype off " required!
 set rtp+=~/.vim/bundle/vundle/
+"set rtp+=~/.vim/bundle/vimproc/
 call vundle#rc()
-" 使用Vundle来管理Vundle，这个必须要有。
+
 Bundle 'gmarik/vundle'
-"接下来是要安装的插件
-"格式1：Github上其他用户的仓库（非vim-scripts账户里的仓库，所以要加Github用户名）
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails.git'
-Bundle 'ervandew/supertab'
-"格式2：vim-scripts里面的仓库，直接打仓库名即可。
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'a.vim'
@@ -28,25 +23,56 @@ Bundle 'matchit.zip'
 Bundle 'genutils'
 Bundle 'mru.vim'
 Bundle 'javacomplete'
-"Bundle 'pythoncomplete'
+Bundle 'pythoncomplete'
+Bundle 'vimproc'
+"Bundle 'Syntastic'
+
+"{{{
+"complete settings
 Bundle 'Shougo/neocomplcache'
+"Bundle "Rip-Rip/clang_complete"
+Bundle 'osyo-manga/neocomplcache-clang_complete'
+Bundle 'Shougo/neocomplcache-clang'
+Bundle 'MarcWeber/ultisnips'
+Bundle "honza/snipmate-snippets"
+let g:UltiSnipsExpandTrigger="<M-l>"
+let g:UltiSnipsJumpForwardTrigger="<M-l>"
+let g:UltiSnipsJumpBackwardTrigger="<M-h>"
+"}}}
+
+Bundle 'kchmck/vim-coffee-script'
+
 Bundle 'ccvext.vim'
 Bundle 'jsbeautify'
 Bundle 'xml.vim'
 Bundle 'css_color.vim'
+Bundle 'jiangmiao/auto-pairs'
 Bundle 'chilicuil/conque'
 Bundle 'FencView.vim'
 Bundle 'majutsushi/tagbar'
-Bundle 'andrep/vimacs'
-Bundle "Rip-Rip/clang_complete"
+"Bundle 'auto-pairs'
 "SnipMate
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-Bundle "honza/snipmate-snippets"
+Bundle "djangojump"
 Bundle "python.vim"
 Bundle "sontek/rope-vim"
 let g:ropevim_vim_completion=1
 let g:ropevim_extended_complete=1
+Bundle 'rstacruz/sparkup'
+" showmarks setting
+""""""""""""""""""""""""""""""
+Bundle 'xsunsmile/showmarks'
+" Enable ShowMarks
+let showmarks_enable = 0
+" Show which marks
+let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+" Ignore help, quickfix, non-modifiable buffers
+let showmarks_ignore_type = "hqm"
+" Hilight lower & upper marks
+let showmarks_hlline_lower = 1
+let showmarks_hlline_upper = 1
+
 "Bundle "VimIM"
 "let g:vimim_cloud = 'google,sogou,baidu,qq'
 "let g:vimim_map = 'tab_as_gi'
@@ -64,7 +90,6 @@ let g:DoxygenToolkit_blockFooter="----------------------------------------------
 Bundle 'YankRing.vim'
 let g:yankring_replace_n_pkey = '<leader>['
 let g:yankring_history_dir = '~/.vim/tmp'
-
 " Yank content in OS's clipboard. `o` stands for "OS's Clipoard".
 vnoremap <leader>yo "*y
 " Paste content from OS's clipboard
@@ -77,7 +102,7 @@ Bundle 'Lokaltog/vim-powerline'
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_enabled = 1
 "syntastic
-Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/Syntastic'
 let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
@@ -88,10 +113,9 @@ nmap <leader>, :call NERDComment(0, "invert")<cr>
 vmap <leader>, :call NERDComment(0, "invert")<cr>
 
 "git tool
-Bundle 'gregsexton/gitv'
+"Bundle 'gregsexton/gitv'
 Bundle 'sjl/splice.vim'
 
-"Bundle 'tpope/vim-fugitive'
 nmap <leader>g :Ggrep
 " ,f for global git serach for word under the cursor (with highlight)
 nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
@@ -155,14 +179,11 @@ augroup END
 
 " Remove trailing whitespaces when saving
 " Wanna know more? http://vim.wikia.com/wiki/Remove_unwanted_spaces
-" If you want to remove trailing spaces when you want, so not automatically,
-" see
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces#Display_or_remove_unwanted_whitespace_with_a_script.
 autocmd BufWritePre * :%s/\s\+$//e
 """"""""""""""""""""""""""""""
 " => Statusline
 """"""""""""""""""""""""""""""
-" Always hide the statusline
+" Always show the statusline
 set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -172,26 +193,6 @@ nmap <F1> :TagbarToggle<cr>
 nmap <F2> :NERDTreeToggle<cr>
 nmap <F3> :BufExplorerHorizontalSplit<cr>
 nmap <silent> <F4> :SyntasticCheck<cr>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Parenthesis/bracket expanding
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-"vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-"vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-"vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-"vnoremap $q <esc>`>a'<esc>`<i'<esc>
-"vnoremap $e <esc>`>a"<esc>`<i"<esc>
-
-" Map auto complete of (, ", ', [
-inoremap [ []<esc>i
-"inoremap { {}<esc>i
-inoremap { {<cr>}<esc>O
-inoremap " ""<esc>i
-inoremap ( ()<esc>i
-inoremap ' ''<esc>i
-
-
-"inoremap $t <><esc>i
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -203,8 +204,6 @@ iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Remap VIM 0
-map 0 ^
 "Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
@@ -213,7 +212,6 @@ vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 
 set guitablabel=%t
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Cope
@@ -240,7 +238,6 @@ map <leader>o :BufExplorer<cr>
 " netrw setting
 """"""""""""""""""""""""""""""
 let g:netrw_winsize = 30
-nmap <silent> <leader>fe :Sexplore!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -277,7 +274,7 @@ au FileType python map <buffer> <leader>D ?def
 """"""""""""""""""""""""""""""
 " => JavaScript section
 """""""""""""""""""""""""""""""
-au FileType javascript call JavaScriptFold()
+"au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript setl nocindent
 
@@ -288,7 +285,7 @@ au FileType javascript inoremap <buffer> $r return
 au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
 
 function! JavaScriptFold()
-    setl foldmethod=syntax
+    setl foldmethod=indent
     setl foldlevelstart=1
     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
@@ -303,16 +300,7 @@ endfunction
 " => MRU plugin
 """"""""""""""""""""""""""""""
 let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
-
-
-""""""""""""""""""""""""""""""
-" => Command-T
-""""""""""""""""""""""""""""""
-let g:CommandTMaxHeight = 15
-set wildignore+=*.o,*.obj,.git,*.pyc
-noremap <leader>j :CommandT<cr>
-noremap <leader>y :CommandTFlush<cr>
+nmap <F6> :MRU<CR>
 
 """"""""""""""""""""""""""""""
 " lookupfile setting
@@ -391,7 +379,7 @@ nmap <M-d> :cs find d <C-R>=expand("<cword>")<CR><CR>
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 "Quickly open a buffer for scripbble
-map <leader>q :e ~/buffer<cr>
+"map <leader>q :e ~/buffer<cr>
 au BufRead,BufNewFile ~/buffer iab <buffer> xh1 ===========================================
 
 map <leader>pp :setlocal paste!<cr>
@@ -447,7 +435,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
  \ }
 
 let g:neocomplcache_snippets_dir=$VIMFILES."/snippets"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
 
 
@@ -458,24 +446,27 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+"imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+"smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-z>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-" Recommended key-mappings.
+"Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  pumvisible()?neocomplcache#close_popup():"\<CR>"
+"inoremap <expr><CR> pumvisible()?neocomplcache#close_popup():"\<CR>"
 " <SPACE>: completion.
 inoremap <expr><space>  pumvisible()?neocomplcache#close_popup() . "\<SPACE>" : "\<SPACE>"
 
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#close_popup()."\<C-h>"
-
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 
 
 " Enable omni completion.
@@ -522,32 +513,21 @@ inoremap <C-]>             <C-X><C-]>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the curors - when moving vertical..
 set so=7
-
 set wildmenu "Turn on WiLd menu
-
 set ruler "Always show current position
-
 set cmdheight=2 "The commandbar height
-
 set hid "Change buffer - without saving
-
 " Set backspace config
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-
 set ignorecase "Ignore case when searching
 set smartcase
-
 set hlsearch "Highlight search things
-
 set incsearch "Make search act like search in modern browsers
 set nolazyredraw "Don't redraw while executing macros
-
 set magic "Set magic on, for regular expressions
-
 set showmatch "Show matching bracets when text indicator is over them
 set mat=2 "How many tenths of a second to blink
-
 " No sound on errors
 set noerrorbells
 set novisualbell
@@ -562,17 +542,18 @@ syntax enable "Enable syntax hl
 
 " Set font according to system
 
-  set gfn=WenQuanYi\ Zen\ Hei\ Mono\ Medium\ 11
-"set gfn=Monospace\ 11
-  set shell=/bin/bash
+set gfn=Ubuntu\ Mono\ 13
+set shell=/bin/bash
 
 if has("gui_running")
     set guioptions-=T
     set guioptions-=m
     set guioptions-=e
     set guioptions-=r
+    set guioptions-=R
     set guioptions-=l
     set guioptions-=L
+    set guioptions-=b
     set background=dark
     colorscheme molokai
 else
@@ -588,8 +569,8 @@ try
 catch
 endtry
 
-set ffs=unix,dos,mac "Default file types
-" 设置文件编码检测类型及支持格式
+set ffs=unix,dos,mac
+"Default file types
 set fencs=utf-8,gkb,ucs-bom,gb18030,gb2312,cp936
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -623,16 +604,13 @@ set wrap "Wrap lines
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set foldlevelstart=3
 set foldenable
-set foldmethod=syntax
+set foldmethod=indent
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 set foldopen-=search
 set foldopen-=undo
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
-" Reselect visual block after indent/outdent
-vnoremap < <gv
-vnoremap > >gv
 " Really useful!
 "  In visual mode when you press * or # to search for the current selection
 vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -640,7 +618,11 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+nmap <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 "Paste cut and copy
 "vnoremap <silent> - "+x
 "vnoremap <silent> = "+y
@@ -672,19 +654,9 @@ function! VisualSearch(direction) range
     let @" = l:saved_reg
 endfunction
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Command mode related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart mappings on the command line
-cno $h e ~/
-cno $d e ~/Desktop/
-cno $j e ./
-cno $c e <C-\>eCurrentFileDir("e")<cr>
-
-" $q is super useful when browsing on the command line
-cno $q <C-\>eDeleteTillSlash()<cr>
 
 " Bash like keys for the command line
 cnoremap <C-A>      <Home>
@@ -694,46 +666,12 @@ cnoremap <C-W>      <C-U>
 cnoremap <C-J> <Up>
 cnoremap <C-k> <Down>
 
-" Useful on some European keyboards
-map ½ $
-imap ½ $
-vmap ½ $
-cmap ½ $
-
-
-func! Cwd()
-  let cwd = getcwd()
-  return "e " . cwd
-endfunc
-
-func! DeleteTillSlash()
-  let g:cmd = getcmdline()
-  if MySys() == "linux" || MySys() == "mac"
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
-  else
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
-  endif
-  if g:cmd == g:cmd_edited
-    if MySys() == "linux" || MySys() == "mac"
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
-    else
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
-    endif
-  endif
-  return g:cmd_edited
-endfunc
-
-func! CurrentFileDir(cmd)
-  return a:cmd . " " . expand("%:p:h") . "/"
-endfunction
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Save when losing focus
 au FocusLost    * :silent! wall
 map <silent> <leader><cr> :noh<cr>
-
 
 "Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -756,27 +694,6 @@ map <leader>tm :tabmove
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
 
-
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
-
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
-
-  if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
-
 " Specify the behavior when switching between buffers
 try
   set switchbuf=usetab
@@ -792,7 +709,6 @@ nmap <C-j> <C-W>j
 " Splits ,v and ,h to open new splits (vertical and horizontal)
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>j
-
 
 filetype plugin indent on
 
