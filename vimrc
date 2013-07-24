@@ -8,30 +8,24 @@ let g:mapleader = ","
 filetype off " required!
 set rtp+=~/.vim/bundle/vundle/
 let g:vundle_default_git_proto = 'git'
-"set rtp+=~/.vim/bundle/vimproc/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'L9'
-Bundle 'FuzzyFinder'
+"Bundle 'FuzzyFinder'
 Bundle 'a.vim'
-Bundle 'lookupfile'
+"Bundle 'lookupfile'
 Bundle 'bufexplorer.zip'
 Bundle "surround.vim"
 Bundle 'matchit.zip'
 Bundle 'genutils'
-Bundle 'mru.vim'
+"Bundle 'mru.vim'
 Bundle 'javacomplete'
 Bundle 'pythoncomplete'
-Bundle 'vimproc'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'derekwyatt/vim-scala'
-Bundle 'Shougo/neocomplcache'
-Bundle 'osyo-manga/neocomplcache-clang_complete'
-Bundle 'Shougo/neocomplcache-clang'
-Bundle 'MarcWeber/ultisnips'
-Bundle "honza/snipmate-snippets"
+Bundle 'UltiSnips'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'ccvext.vim'
 Bundle 'jsbeautify'
@@ -50,15 +44,21 @@ Bundle 'rstacruz/sparkup'
 "Bundle 'xsunsmile/showmarks'
 Bundle "DoxygenToolkit.vim"
 Bundle 'scrooloose/nerdtree'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'Syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'YankRing.vim'
 Bundle 'sjl/splice.vim'
 Bundle 'tomasr/molokai'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/ctrlp.vim'
+
+Bundle 'Valloric/YouCompleteMe'
 
 "Vundle setting end
 filetype plugin indent on
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
 
 func! ShowMarks()
     " Enable ShowMarks
@@ -371,7 +371,6 @@ func! NeoComplete()
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
     " Enable heavy omni completion.
@@ -449,6 +448,7 @@ function! General()
     set gfn=Ubuntu\ Mono\ 13
     set shell=/bin/bash
 
+    colorscheme solarized
     if has("gui_running")
         set guioptions-=T
         "set guioptions-=m
@@ -459,10 +459,8 @@ function! General()
         set guioptions-=L
         set guioptions-=b
         set background=dark
-        colorscheme molokai
     else
         set t_Co=256
-        "colorscheme molokaiterm
         set background=dark
     endif
     set nonu
@@ -646,15 +644,16 @@ function! JavaScriptMode()
     imap <c-a> alert();<esc>hi
     inoremap <buffer> $r return
     inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
+    call JavaScriptFold()
 endfunction
 
 function! JavaScriptFold()
     set expandtab
-    set shiftwidth=4
-    set tabstop=4
+    set shiftwidth=2
+    set tabstop=2
     set smarttab
 
-    setl foldmethod=indent
+    "setl foldmethod=indent
     setl foldlevelstart=1
     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
