@@ -719,3 +719,13 @@ func! CoffeeMode()
     set tabstop=2
     set smarttab
 endfunction
+
+"Jade mode
+au FileType jade call JadeMode()
+
+func! JadeMode()
+    set expandtab
+    set shiftwidth=2
+    set tabstop=2
+    set smarttab
+endfunction
