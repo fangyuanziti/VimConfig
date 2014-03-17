@@ -32,12 +32,16 @@ Bundle 'jsbeautify'
 Bundle 'xml.vim'
 Bundle 'css_color.vim'
 Bundle 'jiangmiao/auto-pairs'
-Bundle 'chilicuil/conque'
+"Bundle 'tarruda/vim-conque-shell'
+Bundle 'tarruda/vim-conque-repl'
+Bundle 'rosenfeld/conque-term'
+Bundle 'Conque-GDB'
+
 Bundle 'FencView.vim'
 Bundle 'majutsushi/tagbar'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-Bundle "djangojump"
+"Bundle "djangojump"
 Bundle "python.vim"
 Bundle "sontek/rope-vim"
 Bundle 'rstacruz/sparkup'
@@ -53,6 +57,10 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 
 Bundle 'Valloric/YouCompleteMe'
+
+"Bundle "simplyzhao/cscope_maps.vim"
+Bundle "cscope.vim"
+Bundle "CCtree"
 
 "Vundle setting end
 filetype plugin indent on
@@ -114,7 +122,7 @@ func! Comment()
 endfunc
 call Comment()
 
-function Grep()
+function! Grep()
     nmap <leader>g :Ggrep
     " ,f for global git serach for word under the cursor (with highlight)
     "nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
@@ -687,28 +695,8 @@ function! CppMode()
     let g:syntastic_cpp_compiler = 'clang++'
     let g:syntastic_cpp_check_header = 1
     let g:syntastic_cpp_auto_refresh_includes = 1
-    call Cscope()
 endfunc
 
-function! Cscope()
-    if has("cscope")
-        set csprg=/usr/bin/cscope
-        set csto=1
-        set cst
-        set nocsverb
-        set csverb
-        set cscopequickfix=s-,c-,d-,i-,t-,e-
-    endif
-
-    nmap <M-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <M-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <M-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <M-t> :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <M-e> :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <M-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <M-i> :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <M-d> :cs find d <C-R>=expand("<cword>")<CR><CR>
-endfunction
 
 "coffee mode
 au FileType coffee call CoffeeMode()
