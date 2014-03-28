@@ -35,7 +35,6 @@ Bundle 'jiangmiao/auto-pairs'
 "Bundle 'tarruda/vim-conque-shell'
 Bundle 'tarruda/vim-conque-repl'
 Bundle 'rosenfeld/conque-term'
-Bundle 'Conque-GDB'
 
 Bundle 'FencView.vim'
 Bundle 'majutsushi/tagbar'
@@ -59,7 +58,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Valloric/YouCompleteMe'
 
 "Bundle "simplyzhao/cscope_maps.vim"
-Bundle "cscope.vim"
+"Bundle "cscope.vim"
 Bundle "CCtree"
 
 "Vundle setting end
@@ -717,3 +716,24 @@ func! JadeMode()
     set tabstop=2
     set smarttab
 endfunction
+
+
+nmap <C-s><C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-s><C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-s><C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-s><C-t> :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-s><C-e> :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-s><C-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-s><C-i> :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-s><C-d> :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+set cscopetag
+
+" check cscope for definition of a symbol before checking ctags: set to 1
+" if you want the reverse search order.
+set csto=0
+set cst
+set nocsverb
+set csverb
+
